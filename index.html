@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartGuide AI - 智能产品助手</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --purple-main: #8B5CF6;
+            --purple-deep: #6D28D9;
+            --gold-main: #D4AF37;
+            --gold-metallic: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            --gold-soft: rgba(212, 175, 55, 0.2);
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --bg-page: #FDFDFD;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-page);
+            color: #1E293B;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* STRICT GOLDEN DESIGN LINES */
+        .gold-border {
+            border: 1px solid var(--gold-main);
+        }
+        .gold-border-gradient {
+            border: 1px solid transparent;
+            background-image: linear-gradient(white, white), var(--gold-metallic);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+        }
+        .gold-divider {
+            height: 1px;
+            background: var(--gold-metallic);
+        }
+
+        /* 3D PREMIUM CARDS */
+        .premium-card {
+            background: white;
+            border-radius: 2rem;
+            border: 1px solid var(--gold-main);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .premium-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px -10px rgba(212, 175, 55, 0.2);
+        }
+
+        /* TACTILE BUTTON STATES - EASY TO IDENTIFY */
+        .btn-base {
+            border-radius: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        /* State: Default -> Purple Gradient */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-main) 0%, var(--purple-deep) 100%);
+            color: white;
+            border: 2px solid transparent;
+        }
+        .btn-primary:hover {
+            filter: brightness(1.15);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+        .btn-primary:active {
+            transform: translateY(1px) scale(0.96);
+            box-shadow: 0 2px 5px rgba(139, 92, 246, 0.2);
+        }
+
+        /* State: Outline -> Gold */
+        .btn-outline-gold {
+            background: white;
+            color: var(--gold-main);
+            border: 2px solid var(--gold-main);
+        }
+        .btn-outline-gold:hover {
+            background: var(--gold-main);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--gold-glow);
+        }
+        .btn-outline-gold:active {
+            transform: translateY(1px) scale(0.96);
+        }
+
+        /* State: Danger -> Red */
+        .btn-danger {
+            background: #EF4444;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #DC2626;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Animation & UI Effects */
+        @keyframes gold-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+        .pulse-live {
+            animation: gold-pulse 2s infinite;
+        }
+
+        @keyframes waveform {
+            0%, 100% { transform: scaleY(0.4); opacity: 0.5; }
+            50% { transform: scaleY(1.6); opacity: 1; }
+        }
+        .bar {
+            animation: waveform 0.6s infinite ease-in-out;
+            background: var(--gold-main);
+            width: 4px;
+            border-radius: 4px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--gold-soft); border-radius: 20px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-main); }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom": "https://esm.sh/react-dom@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "recharts": "https://esm.sh/recharts@^3.7.0",
+    "qrcode": "https://esm.sh/qrcode@^1.5.3"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
