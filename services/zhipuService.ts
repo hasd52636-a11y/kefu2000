@@ -188,8 +188,10 @@ export const ZHIPU_MODELS = {
 
 // 默认配置
 export const getZhipuAI = (model: string = 'glm-4.7') => {
+  // 优先使用localStorage中保存的API密钥
+  const apiKey = localStorage.getItem('ZHIPU_API_KEY') || 'a75d46768b0f45dc90a5969077ffc8d9.dT0t2tku3hZGfYkk';
   return new ZhipuAI({
-    apiKey: 'a75d46768b0f45dc90a5969077ffc8d9.dT0t2tku3hZGfYkk',
+    apiKey,
     model
   });
 };

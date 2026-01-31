@@ -84,7 +84,17 @@ export const enUS = {
       save: "Commit Changes",
       basic: "Basic Information",
       knowledge: "Knowledge Base Management",
-      qr: "QR Code"
+      qr: "QR Code",
+      labels: {
+        projectLabel: "Project Label",
+        modelReference: "Model Reference",
+        serviceDescription: "Service Description",
+        syncing: "Syncing with AI Engine...",
+        uploaded: "Uploaded",
+        exportQR: "Export QR High-Res",
+        secureLink: "Secure Link",
+        secureLinkDesc: "Generated QR links directly to the AI service interface for this specific hardware ID."
+      }
     }
   },
   

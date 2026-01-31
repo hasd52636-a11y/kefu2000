@@ -84,7 +84,17 @@ export const zhCN = {
       save: "提交更改",
       basic: "基本信息",
       knowledge: "知识库管理",
-      qr: "QR 代码"
+      qr: "QR 代码",
+      labels: {
+        projectLabel: "项目标签",
+        modelReference: "型号参考",
+        serviceDescription: "服务描述",
+        syncing: "正在与AI引擎同步...",
+        uploaded: "上传于",
+        exportQR: "导出高分辨率QR码",
+        secureLink: "安全链接",
+        secureLinkDesc: "生成的QR码直接链接到此特定硬件ID的AI服务界面。"
+      }
     }
   },
   

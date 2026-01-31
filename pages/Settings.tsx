@@ -52,6 +52,9 @@ const Settings: React.FC = () => {
     }));
 
     try {
+      // 临时保存到localStorage以便getZhipuAI使用
+      localStorage.setItem('ZHIPU_API_KEY', apiKeys.zhipu);
+      
       // 创建ZhipuAI实例
       const zhipuAI = getZhipuAI();
       

@@ -169,17 +169,17 @@ const ProductManagement: React.FC = () => {
               <div className="flex-1 p-12 space-y-12 bg-gray-50/30">
                 <div className="grid grid-cols-2 gap-10">
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest">Project Label</label>
+                    <label className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest">{t.products.modal.labels.projectLabel}</label>
                     <input type="text" value={editingProduct.name} onChange={e => setEditingProduct({...editingProduct, name: e.target.value})} className="w-full bg-white border-2 border-gray-100 focus:border-[#D4AF37] rounded-2xl px-6 py-4 font-black text-[#1E293B] outline-none transition-all shadow-inner" />
                   </div>
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest">Model Reference</label>
+                    <label className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest">{t.products.modal.labels.modelReference}</label>
                     <input type="text" value={editingProduct.model} onChange={e => setEditingProduct({...editingProduct, model: e.target.value})} className="w-full bg-white border-2 border-gray-100 focus:border-[#D4AF37] rounded-2xl px-6 py-4 font-black text-[#1E293B] font-mono outline-none transition-all shadow-inner" />
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <label className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest">Service Description</label>
+                  <label className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest">{t.products.modal.labels.serviceDescription}</label>
                   <textarea rows={4} value={editingProduct.description} onChange={e => setEditingProduct({...editingProduct, description: e.target.value})} className="w-full bg-white border-2 border-gray-100 focus:border-[#D4AF37] rounded-2xl px-6 py-4 font-bold text-gray-600 outline-none transition-all resize-none shadow-inner" />
                 </div>
 
@@ -193,7 +193,7 @@ const ProductManagement: React.FC = () => {
                   {uploadProgress !== null && (
                     <div className="p-8 rounded-2xl bg-purple-50 border-2 border-purple-100">
                       <div className="flex justify-between items-center mb-4">
-                        <span className="text-xs font-black text-purple-600 uppercase tracking-widest">Syncing with AI Engine...</span>
+                        <span className="text-xs font-black text-purple-600 uppercase tracking-widest">{t.products.modal.labels.syncing}</span>
                         <span className="text-sm font-black text-purple-600">{uploadProgress}%</span>
                       </div>
                       <div className="h-2 w-full bg-white rounded-full overflow-hidden">
@@ -210,7 +210,7 @@ const ProductManagement: React.FC = () => {
                         </div>
                         <div className="flex-1 ml-6 min-w-0">
                           <h4 className="text-lg font-black text-[#1E293B] truncate">{doc.name}</h4>
-                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">{doc.size} • Uploaded {doc.uploadDate}</p>
+                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">{doc.size} • {t.products.modal.labels.uploaded} {doc.uploadDate}</p>
                         </div>
                         <button className="btn-base btn-danger p-3 opacity-0 group-hover:opacity-100 transition-opacity">
                           <Icons.Close className="w-5 h-5" />
@@ -245,11 +245,11 @@ const ProductManagement: React.FC = () => {
 
                   <div className="pt-10 space-y-4">
                     <button onClick={handleDownloadQR} className="btn-base btn-outline-gold w-full py-4 text-[10px] tracking-widest">
-                      Export QR High-Res
+                      {t.products.modal.labels.exportQR}
                     </button>
                     <div className="p-6 rounded-2xl bg-gray-50 border border-gray-100 text-left">
-                      <p className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest mb-2">Secure Link</p>
-                      <p className="text-[10px] font-bold text-gray-400 leading-relaxed">Generated QR links directly to the AI service interface for this specific hardware ID.</p>
+                      <p className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest mb-2">{t.products.modal.labels.secureLink}</p>
+                      <p className="text-[10px] font-bold text-gray-400 leading-relaxed">{t.products.modal.labels.secureLinkDesc}</p>
                     </div>
                   </div>
                 </div>
