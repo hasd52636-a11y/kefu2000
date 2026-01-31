@@ -5,6 +5,7 @@ import { Product, KBDocument } from '../types';
 import QRCode from 'qrcode';
 import { useLocale } from '../contexts/LocaleContext';
 import KnowledgeBase from '../components/KnowledgeBase';
+import { backupLinkUtils } from '../components/BackupLinkManager';
 
 const ProductManagement: React.FC = () => {
   const { t } = useLocale();
@@ -16,8 +17,9 @@ const ProductManagement: React.FC = () => {
 
   useEffect(() => {
     if (editingProduct) {
-      const previewUrl = `${window.location.origin}${window.location.pathname}#/preview/${editingProduct.id}`;
-      QRCode.toDataURL(previewUrl, {
+      // 使用备用链接生成二维码
+      const backupUrl = backupLinkUtils.getNextBackupLink(editingProduct.id);
+      QRCode.toDataURL(backupUrl, {
         width: 600,
         margin: 1,
         color: { dark: '#1E293B', light: '#FFFFFF' },
@@ -248,8 +250,9 @@ const ProductManagement: React.FC = () => {
                       {t.products.modal.labels.exportQR}
                     </button>
                     <div className="p-6 rounded-2xl bg-gray-50 border border-gray-100 text-left">
-                      <p className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest mb-2">{t.products.modal.labels.secureLink}</p>
-                      <p className="text-[10px] font-bold text-gray-400 leading-relaxed">{t.products.modal.labels.secureLinkDesc}</p>
+                      <p className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest mb-2">Backup Link System</p>
+                      <p className="text-[10px] font-bold text-gray-400 leading-relaxed">This QR code uses a backup link from our 100-link rotation system to avoid being blocked.</p>
+                      <p className="text-[10px] font-bold text-gray-400 leading-relaxed mt-2">Each scan will use a different complex link to ensure reliable access.</p>
                     </div>
                   </div>
                 </div>

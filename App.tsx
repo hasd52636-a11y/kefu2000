@@ -22,6 +22,11 @@ const App: React.FC = () => {
         const id = hash.replace('#/preview/', '');
         setSelectedProductId(id);
         setView('user');
+      } else if (hash.startsWith('#/view/')) {
+        // 处理备用链接路径
+        const id = hash.split('/')[2].split('?')[0]; // 提取ID，忽略查询参数
+        setSelectedProductId(id);
+        setView('user');
       } else {
         setView('admin');
       }
