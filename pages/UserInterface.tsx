@@ -20,11 +20,14 @@ const UserInterface: React.FC<{ productId: string }> = ({ productId }) => {
 
   // 检测用户地区
   const isChineseRegion = () => {
-    // 简单检测：根据浏览器语言和时区
-    const language = navigator.language || navigator.userLanguage;
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    
-    return language.startsWith('zh') || timeZone.includes('China') || timeZone.includes('Asia/Shanghai');
+    // 简单检测：根据浏览器语言
+    try {
+      const language = navigator.language;
+      return language.startsWith('zh');
+    } catch (error) {
+      console.error('Region detection error:', error);
+      return true;
+    }
   };
   const [messages, setMessages] = useState<Message[]>([
     {

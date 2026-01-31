@@ -6,6 +6,8 @@ import Dashboard from './pages/Dashboard';
 import ProductManagement from './pages/ProductManagement';
 import UserInterface from './pages/UserInterface';
 import Settings from './pages/Settings';
+import Stats from './pages/Stats';
+import KnowledgeBase from './components/KnowledgeBase';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -52,13 +54,10 @@ const App: React.FC = () => {
 
             {activeTab === 'dashboard' && <Dashboard />}
             {activeTab === 'products' && <ProductManagement />}
-            {activeTab === 'stats' && (
-              <div className="p-8 text-center text-gray-500">
-                <h2 className="text-2xl font-bold text-white mb-2">使用统计详情</h2>
-                <p>正在生成深度分析报告...</p>
-              </div>
-            )}
+            {activeTab === 'stats' && <Stats />}
             {activeTab === 'settings' && <Settings />}
+            {activeTab === 'knowledge' && <KnowledgeBase />}
+            {activeTab === 'search' && <KnowledgeBase />}
           </div>
         </Layout>
       )}

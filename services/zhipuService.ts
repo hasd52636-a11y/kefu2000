@@ -189,7 +189,7 @@ export const ZHIPU_MODELS = {
 // 默认配置
 export const getZhipuAI = (model: string = 'glm-4.7') => {
   return new ZhipuAI({
-    apiKey: process.env.ZHIPU_API_KEY || '',
+    apiKey: 'a75d46768b0f45dc90a5969077ffc8d9.dT0t2tku3hZGfYkk',
     model
   });
 };

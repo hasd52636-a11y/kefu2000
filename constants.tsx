@@ -44,14 +44,50 @@ export const MOCK_PRODUCTS: Product[] = [
 ];
 
 export const MOCK_STATS = [
-  { name: '周一', visits: 400, queries: 240 },
-  { name: '周二', visits: 300, queries: 280 },
-  { name: '周三', visits: 350, queries: 139 },
-  { name: '周四', visits: 278, queries: 320 },
-  { name: '周五', visits: 340, queries: 290 },
-  { name: '周六', visits: 380, queries: 380 },
-  { name: '周日', visits: 400, queries: 340 },
+  { name: '周一', visits: 400, queries: 240, ocr: 50, knowledge: 30 },
+  { name: '周二', visits: 300, queries: 280, ocr: 60, knowledge: 40 },
+  { name: '周三', visits: 350, queries: 139, ocr: 45, knowledge: 25 },
+  { name: '周四', visits: 278, queries: 320, ocr: 70, knowledge: 50 },
+  { name: '周五', visits: 340, queries: 290, ocr: 65, knowledge: 45 },
+  { name: '周六', visits: 380, queries: 380, ocr: 80, knowledge: 60 },
+  { name: '周日', visits: 400, queries: 340, ocr: 75, knowledge: 55 },
 ];
+
+// 产品使用统计数据
+export const PRODUCT_USAGE_STATS = [
+  { productId: 'p1', name: '智能变频空调 Pro', totalQueries: 120, solvedQueries: 115, satisfaction: 96, ocrUsage: 35, knowledgeUsage: 85 },
+  { productId: 'p2', name: '全自动智能咖啡机', totalQueries: 85, solvedQueries: 80, satisfaction: 94, ocrUsage: 25, knowledgeUsage: 60 },
+  { productId: 'p3', name: '户外便携储能电源', totalQueries: 45, solvedQueries: 42, satisfaction: 93, ocrUsage: 15, knowledgeUsage: 30 },
+];
+
+// 月度趋势数据
+export const MONTHLY_TREND = [
+  { month: '1月', totalUsers: 1200, activeUsers: 850, queries: 3200, satisfaction: 94 },
+  { month: '2月', totalUsers: 1350, activeUsers: 920, queries: 3600, satisfaction: 95 },
+  { month: '3月', totalUsers: 1500, activeUsers: 1050, queries: 4200, satisfaction: 96 },
+  { month: '4月', totalUsers: 1650, activeUsers: 1180, queries: 4800, satisfaction: 95 },
+  { month: '5月', totalUsers: 1800, activeUsers: 1320, queries: 5400, satisfaction: 97 },
+  { month: '6月', totalUsers: 2000, activeUsers: 1480, queries: 6200, satisfaction: 96 },
+];
+
+// 常见问题统计
+export const COMMON_QUESTIONS = [
+  { id: 'q1', question: '如何连接WiFi', frequency: 45, category: '网络设置' },
+  { id: 'q2', question: '如何重置设备', frequency: 38, category: '设备管理' },
+  { id: 'q3', question: '如何更新固件', frequency: 32, category: '系统更新' },
+  { id: 'q4', question: '如何添加新设备', frequency: 28, category: '设备管理' },
+  { id: 'q5', question: '如何设置智能场景', frequency: 25, category: '场景设置' },
+];
+
+// 知识库使用统计
+export const KNOWLEDGE_BASE_STATS = {
+  totalDocuments: 128,
+  vectorizedDocuments: 112,
+  searchCount: 850,
+  averageSearchTime: 0.8,
+  mostPopularDocument: '虚拟客服小百科',
+  mostSearchedKeyword: '连接WiFi',
+};
 
 export const Icons = {
   Dashboard: (props: any) => (
@@ -88,5 +124,20 @@ export const Icons = {
   ),
   Image: (props: any) => (
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+  ),
+  Download: (props: any) => (
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+  ),
+  Brain: (props: any) => (
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+  ),
+  Lightbulb: (props: any) => (
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+  ),
+  CheckCircle: (props: any) => (
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+  ),
+  Heart: (props: any) => (
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
   )
 };

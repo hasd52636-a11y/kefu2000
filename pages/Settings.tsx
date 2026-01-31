@@ -108,7 +108,7 @@ const Settings: React.FC = () => {
           <div className="flex items-center space-x-4">
              <div className="w-2 h-10 bg-[#D4AF37] rounded-full shadow-[0_0_10px_var(--gold-glow)]"></div>
              <h1 className="text-5xl font-black tracking-tighter text-[#1E293B]">
-              {t('settings.title')} <span className="text-[#D4AF37]">Configuration</span>
+              {t.settings.title} <span className="text-[#D4AF37]">Configuration</span>
             </h1>
           </div>
           <p className="text-gray-400 font-bold text-xl ml-6">API密钥管理和系统设置</p>
@@ -120,7 +120,7 @@ const Settings: React.FC = () => {
       {/* API密钥设置 */}
       <div className="premium-card p-12 bg-white border-[#D4AF37]/30">
         <h2 className="text-2xl font-black text-[#1E293B] mb-8 uppercase tracking-tight">
-          {t('settings.ai')}
+          {t.settings.ai}
         </h2>
 
         {/* 保存状态提示 */}
@@ -221,7 +221,7 @@ const Settings: React.FC = () => {
         <div className="space-y-8">
           {/* 默认AI模型 */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[#1E293B]">{t('settings.defaultModel')}</h3>
+            <h3 className="text-lg font-semibold text-[#1E293B]">{t.settings.defaultModel}</h3>
             <select className="w-full px-6 py-4 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent text-lg font-bold">
               <option value="gemini">Google Gemini</option>
               <option value="zhipu">智谱GLM</option>
@@ -230,7 +230,7 @@ const Settings: React.FC = () => {
 
           {/* 多模态分析模型 */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[#1E293B]">{t('settings.multimodalModel')}</h3>
+            <h3 className="text-lg font-semibold text-[#1E293B]">{t.settings.multimodalModel}</h3>
             <select className="w-full px-6 py-4 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent text-lg font-bold">
               <option value="gemini-2.5-flash-image">Gemini 2.5 Flash Image</option>
               <option value="glm-4.6v">GLM-4.6V</option>

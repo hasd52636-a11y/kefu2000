@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #555;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #0069d9;
+        }
+        .result {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>应用状态测试</h1>
+        
+        <div class="test-section">
+            <h2>1. 开发服务器状态</h2>
+            <button onclick="testDevServer()">测试开发服务器</button>
+            <div id="dev-server-result" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. 预览服务器状态</h2>
+            <button onclick="testPreviewServer()">测试预览服务器</button>
+            <div id="preview-server-result" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. 智谱AI API测试</h2>
+            <button onclick="testZhipuAI()">测试智谱AI</button>
+            <div id="zhipu-result" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>4. 缓存清理</h2>
+            <button onclick="clearAllCache()">清理所有缓存</button>
+            <div id="cache-result" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>5. 解决方案</h2>
+            <div class="result info">
+                <strong>如果浏览器显示不正常，请尝试以下步骤：</strong>
+                <br>1. 打开浏览器开发者工具 (F12)
+                <br>2. 右键点击刷新按钮，选择 "清空缓存并硬性重新加载"
+                <br>3. 或者使用快捷键：Ctrl+Shift+R (Windows) / Cmd+Shift+R (Mac)
+                <br>4. 检查Console标签页是否有错误信息
+                <br>5. 尝试使用隐私模式打开
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showResult(elementId, content, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = content;
+            element.className = `result ${type}`;
+        }
+        
+        function testDevServer() {
+            showResult('dev-server-result', '测试中...', 'info');
+            
+            fetch('http://localhost:3000/')
+                .then(response => {
+                    if (response.ok) {
+                        showResult('dev-server-result', `✅ 开发服务器正常
+状态码: ${response.status}
+URL: http://localhost:3000/`, 'success');
+                    } else {
+                        showResult('dev-server-result', `❌ 开发服务器异常
+状态码: ${response.status}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    showResult('dev-server-result', `❌ 连接失败: ${error.message}`, 'error');
+                });
+        }
+        
+        function testPreviewServer() {
+            showResult('preview-server-result', '测试中...', 'info');
+            
+            fetch('http://localhost:4173/')
+                .then(response => {
+                    if (response.ok) {
+                        showResult('preview-server-result', `✅ 预览服务器正常
+状态码: ${response.status}
+URL: http://localhost:4173/`, 'success');
+                    } else {
+                        showResult('preview-server-result', `❌ 预览服务器异常
+状态码: ${response.status}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    showResult('preview-server-result', `❌ 连接失败: ${error.message}`, 'error');
+                });
+        }
+        
+        function testZhipuAI() {
+            showResult('zhipu-result', '测试中...', 'info');
+            
+            const apiKey = 'a75d46768b0f45dc90a5969077ffc8d9.dT0t2tku3hZGfYkk';
+            const messages = [
+                {
+                    role: 'user',
+                    content: '你好，测试智谱AI模型是否正常工作'
+                }
+            ];
+            
+            fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: 'glm-4.7',
+                    messages,
+                    temperature: 0.8,
+                    max_tokens: 100
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(`API错误: ${response.status}`);
+                }
+            })
+            .then(data => {
+                showResult('zhipu-result', `✅ 智谱AI API正常
+模型: ${data.model}
+响应: ${data.choices[0]?.message?.content.substring(0, 100)}...`, 'success');
+            })
+            .catch(error => {
+                showResult('zhipu-result', `❌ 智谱AI测试失败: ${error.message}`, 'error');
+            });
+        }
+        
+        function clearAllCache() {
+            showResult('cache-result', '清理中...', 'info');
+            
+            try {
+                // 清除本地存储
+                if (typeof localStorage !== 'undefined') {
+                    localStorage.clear();
+                }
+                
+                // 清除会话存储
+                if (typeof sessionStorage !== 'undefined') {
+                    sessionStorage.clear();
+                }
+                
+                // 清除Service Worker
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.getRegistrations().then(registrations => {
+                        registrations.forEach(reg => reg.unregister());
+                    });
+                }
+                
+                setTimeout(() => {
+                    showResult('cache-result', `✅ 缓存清理完成
+- LocalStorage已清除
+- SessionStorage已清除
+- Service Worker已注销
+
+请刷新页面或重新打开浏览器`, 'success');
+                }, 1000);
+            } catch (error) {
+                showResult('cache-result', `❌ 清理失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // 页面加载时自动测试
+        window.onload = function() {
+            testDevServer();
+            testPreviewServer();
+        };
+    </script>
+</body>
+</html>

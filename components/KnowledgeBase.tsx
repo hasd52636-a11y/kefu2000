@@ -900,7 +900,7 @@ SmartHome Pro Hub是一款功能强大的智能家居控制中心，支持连接
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                <Icons.Knowledge className="text-blue-600" />
+                <Icons.Knowledge className="text-blue-600" size={24} />
                 知识库管理
               </h2>
               <button
@@ -915,7 +915,7 @@ SmartHome Pro Hub是一款功能强大的智能家居控制中心，支持连接
                   </>
                 ) : (
                   <>
-                    <Icons.Knowledge />
+                    <Icons.Knowledge size={16} />
                     批量向量化
                   </>
                 )}
@@ -991,7 +991,7 @@ SmartHome Pro Hub是一款功能强大的智能家居控制中心，支持连接
                 disabled={!newDocument.title || !newDocument.content}
                 className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:bg-gray-400 transition-colors"
               >
-                <Icons.Image size={18} />
+                <Icons.Image size={16} />
                 添加文档
               </button>
             </div>
@@ -1059,7 +1059,7 @@ SmartHome Pro Hub是一款功能强大的智能家居控制中心，支持连接
         <div className="lg:col-span-1">
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2 mb-6">
-              <Icons.Search className="text-purple-600" />
+              <Icons.Search className="text-purple-600" size={20} />
               智能语义搜索
             </h2>
 
@@ -1081,7 +1081,7 @@ SmartHome Pro Hub是一款功能强大的智能家居控制中心，支持连接
                   {isSearching ? (
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   ) : (
-                    <Icons.Search size={18} />
+                    <Icons.Search size={16} />
                   )}
                 </button>
               </div>
