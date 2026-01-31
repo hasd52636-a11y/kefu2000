@@ -4,6 +4,7 @@ import { MOCK_PRODUCTS, Icons } from '../constants';
 import { Product, KBDocument } from '../types';
 import QRCode from 'qrcode';
 import { useLocale } from '../contexts/LocaleContext';
+import KnowledgeBase from '../components/KnowledgeBase';
 
 const ProductManagement: React.FC = () => {
   const { t } = useLocale();
@@ -133,6 +134,19 @@ const ProductManagement: React.FC = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* 知识库管理 */}
+      <div className="animate-slide-in">
+        <div className="flex items-end justify-between mb-8">
+          <div className="space-y-3">
+            <h2 className="text-3xl font-black tracking-tighter text-[#1E293B]">
+              {t('layout.sidebar.subMenu.knowledge')} <span className="text-[#D4AF37]">Management</span>
+            </h2>
+            <p className="text-gray-400 font-bold">智能知识库配置和管理</p>
+          </div>
+        </div>
+        <KnowledgeBase />
       </div>
 
       {editingProduct && (

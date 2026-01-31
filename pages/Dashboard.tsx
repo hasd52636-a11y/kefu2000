@@ -12,6 +12,8 @@ const Dashboard: React.FC = () => {
     { label: t.dashboard.stats.aiQueries, sub: 'AI QUERIES', value: '1,420', trend: '+18%', isPositive: true },
     { label: t.dashboard.stats.resolution, sub: 'RESOLUTION', value: '94.2%', trend: '+2%', isPositive: true },
     { label: t.dashboard.stats.avgSession, sub: 'AVG. SESSION', value: '3m 42s', trend: '-5%', isPositive: false },
+    { label: '知识库文档', sub: 'KB DOCUMENTS', value: '128', trend: '+8%', isPositive: true },
+    { label: 'OCR识别次数', sub: 'OCR RECOGNITIONS', value: '526', trend: '+24%', isPositive: true },
   ];
 
   return (
@@ -43,7 +45,7 @@ const Dashboard: React.FC = () => {
       <div className="gold-divider opacity-30"></div>
 
       {/* Stats Cards with Gold Borders */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {stats.map((stat, i) => (
           <div key={i} className="premium-card p-10 group cursor-pointer border-[#D4AF37]/30">
             <div className="flex justify-between items-start mb-8">
@@ -53,6 +55,8 @@ const Dashboard: React.FC = () => {
                   {i === 1 && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />}
                   {i === 2 && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />}
                   {i === 3 && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />}
+                  {i === 4 && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />}
+                  {i === 5 && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />}
                 </svg>
               </div>
               <span className={`text-[10px] font-black px-4 py-1.5 rounded-full border-2 ${stat.isPositive ? 'text-emerald-500 border-emerald-50 bg-emerald-50' : 'text-pink-500 border-pink-50 bg-pink-50'}`}>

@@ -131,5 +131,48 @@ export const enUS = {
   stats: {
     title: "Usage Statistics Details",
     loading: "Generating deep analysis report..."
+  },
+  
+  // OCR Tool
+  ocr: {
+    title: "OCR Text Recognition",
+    uploadImage: "Upload Image",
+    recognizeText: "Recognize Text",
+    processing: "Processing...",
+    preview: "Preview",
+    recognizedText: "Recognized Text",
+    copyText: "Copy Text",
+    features: "Features",
+    feature1: "Supports multiple image formats",
+    feature2: "High-precision text recognition",
+    feature3: "Multi-language recognition support",
+    feature4: "Fast processing response",
+    mockText: "This is a simulated OCR recognition result.\n\nExample content:\n- Product Model: X1 Pro\n- Production Date: December 2024\n- Warranty Period: 12 months\n- Technical Parameters: See manual\n\nThank you for using our text recognition service!"
+  },
+  
+  // Smart Search
+  search: {
+    title: "Smart Search",
+    placeholder: "Enter keywords to search...",
+    search: "Search",
+    searching: "Searching...",
+    recentSearches: "Recent Searches",
+    results: "Search Results ({{count}})",
+    relevance: "Relevance {{score}}%",
+    viewDetails: "View Details",
+    knowledgeBase: "Knowledge Base",
+    document: "Document",
+    faq: "FAQ",
+    features: "Features",
+    feature1: "Intelligent semantic search",
+    feature2: "Multi-dimensional result sorting",
+    feature3: "Search history records",
+    feature4: "Real-time search suggestions",
+    result1Title: "Product User Guide",
+    result1Content: "This document provides detailed usage instructions for the product, including installation, configuration, daily use, and troubleshooting.",
+    result2Title: "Frequently Asked Questions",
+    result2Content: "This section summarizes common problems and solutions encountered by users, helping them quickly resolve difficulties encountered during use.",
+    result3Title: "Technical Specifications",
+    result3Content: "Detailed product technical parameters, including hardware configuration, software requirements, network requirements, and other technical information."
   }
 };

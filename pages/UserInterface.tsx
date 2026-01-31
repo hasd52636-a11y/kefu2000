@@ -8,6 +8,7 @@ import {
   analyzeFaultImage, 
   startLiveSession 
 } from '../services/geminiService';
+import { ocrService } from '../services/ocrService';
 
 const UserInterface: React.FC<{ productId: string }> = ({ productId }) => {
   const { t } = useLocale();
@@ -113,7 +114,37 @@ const UserInterface: React.FC<{ productId: string }> = ({ productId }) => {
     { label: t.user.quickActions.tools.diagnosis, icon: '🛠️', prompt: '请根据产品手册引导我进行常见故障的诊断。' },
     { label: t.user.quickActions.tools.installation, icon: '📦', prompt: '请一步步告诉我这款产品的安装流程和注意事项。' },
     { label: t.user.quickActions.tools.maintenance, icon: '🧹', prompt: '这款产品应该如何进行日常清洁、滤网更换等保养操作？' },
+    { label: '文字识别', icon: '📝', action: 'ocr' },
   ];
+
+  const handleOCR = async (imageUrl: string) => {
+    setIsLoading(true);
+    try {
+      const ocrResult = await ocrService.recognizeText({ image: imageUrl });
+      
+      const ocrMsg: Message = {
+        id: 'ocr-' + Date.now(),
+        role: 'assistant',
+        content: `我已从图片中识别到以下文字：\n\n${ocrResult.text}\n\n您可以基于这些信息向我询问相关问题。`,
+        timestamp: new Date(),
+        type: 'text'
+      };
+      
+      setMessages(prev => [...prev, ocrMsg]);
+    } catch (error) {
+      console.error('OCR失败:', error);
+      const errorMsg: Message = {
+        id: 'ocr-error-' + Date.now(),
+        role: 'assistant',
+        content: '文字识别失败，请重试或上传清晰的图片。',
+        timestamp: new Date(),
+        type: 'text'
+      };
+      setMessages(prev => [...prev, errorMsg]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen max-w-lg mx-auto bg-white shadow-2xl overflow-hidden relative border-x-4 border-[#D4AF37]/30">
@@ -210,7 +241,13 @@ const UserInterface: React.FC<{ productId: string }> = ({ productId }) => {
             {quickTools.map((tool, idx) => (
               <button 
                 key={idx}
-                onClick={() => handleSendMessage(tool.prompt)}
+                onClick={() => {
+                  if (tool.action === 'ocr') {
+                    fileInputRef.current?.click();
+                  } else if (tool.prompt) {
+                    handleSendMessage(tool.prompt);
+                  }
+                }}
                 className="btn-base btn-outline-gold px-6 py-4 whitespace-nowrap text-[10px] tracking-widest"
               >
                 <span className="text-xl mr-2">{tool.icon}</span>
@@ -231,7 +268,16 @@ const UserInterface: React.FC<{ productId: string }> = ({ productId }) => {
             const f = e.target.files?.[0];
             if (f) { 
               const r = new FileReader(); 
-              r.onload = () => handleSendMessage(undefined, r.result as string); 
+              r.onload = () => {
+                const imageUrl = r.result as string;
+                // 检查是否从OCR工具入口上传
+                const activeTool = quickTools.find(tool => tool.action === 'ocr');
+                if (activeTool) {
+                  handleOCR(imageUrl);
+                } else {
+                  handleSendMessage(undefined, imageUrl);
+                }
+              };
               r.readAsDataURL(f); 
             }
           }} />
