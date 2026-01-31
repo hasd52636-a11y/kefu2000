@@ -5,6 +5,7 @@ import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import ProductManagement from './pages/ProductManagement';
 import UserInterface from './pages/UserInterface';
+import Settings from './pages/Settings';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -57,29 +58,7 @@ const App: React.FC = () => {
                 <p>正在生成深度分析报告...</p>
               </div>
             )}
-            {activeTab === 'settings' && (
-              <div className="p-8">
-                 <h2 className="text-2xl font-bold mb-6">系统设置</h2>
-                 <div className="space-y-6 max-w-2xl">
-                    <div className="p-6 rounded-2xl glass border border-white/5 space-y-4">
-                       <h3 className="font-semibold">AI 模型配置</h3>
-                       <div className="flex flex-col space-y-2">
-                          <label className="text-xs text-gray-400">默认回答模型</label>
-                          <select className="bg-[#12141a] border border-white/10 rounded-lg px-4 py-2 outline-none">
-                            <option>Gemini 3 Flash (推荐)</option>
-                            <option>Gemini 3 Pro</option>
-                          </select>
-                       </div>
-                       <div className="flex flex-col space-y-2">
-                          <label className="text-xs text-gray-400">多模态分析模型</label>
-                          <select className="bg-[#12141a] border border-white/10 rounded-lg px-4 py-2 outline-none">
-                            <option>Gemini 2.5 Flash Image</option>
-                          </select>
-                       </div>
-                    </div>
-                 </div>
-              </div>
-            )}
+            {activeTab === 'settings' && <Settings />}
           </div>
         </Layout>
       )}

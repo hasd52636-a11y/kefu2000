@@ -8,11 +8,24 @@ import {
   analyzeFaultImage, 
   startLiveSession 
 } from '../services/geminiService';
+import { 
+  getZhipuResponse, 
+  analyzeFaultImageWithZhipu 
+} from '../services/zhipuService';
 import { ocrService } from '../services/ocrService';
 
 const UserInterface: React.FC<{ productId: string }> = ({ productId }) => {
   const { t } = useLocale();
   const product = MOCK_PRODUCTS.find(p => p.id === productId) || MOCK_PRODUCTS[0];
+
+  // 检测用户地区
+  const isChineseRegion = () => {
+    // 简单检测：根据浏览器语言和时区
+    const language = navigator.language || navigator.userLanguage;
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+    return language.startsWith('zh') || timeZone.includes('China') || timeZone.includes('Asia/Shanghai');
+  };
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
@@ -27,6 +40,7 @@ const UserInterface: React.FC<{ productId: string }> = ({ productId }) => {
   const [isLive, setIsLive] = useState(false);
   const [liveTranscription, setLiveTranscription] = useState('');
   const [liveSession, setLiveSession] = useState<{ stop: () => Promise<void> } | null>(null);
+  const [aiModel, setAiModel] = useState<'gemini' | 'zhipu'>('gemini');
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -55,11 +69,26 @@ const UserInterface: React.FC<{ productId: string }> = ({ productId }) => {
 
     try {
       if (imageUrl) {
-        const base64 = imageUrl.split(',')[1];
-        const resText = await analyzeFaultImage(base64, product.model);
+        let resText;
+        
+        if (aiModel === 'zhipu') {
+          const base64 = imageUrl.split(',')[1];
+          resText = await analyzeFaultImageWithZhipu(base64, product.model);
+        } else {
+          const base64 = imageUrl.split(',')[1];
+          resText = await analyzeFaultImage(base64, product.model);
+        }
+        
         setMessages(prev => [...prev, { id: 'ai-' + Date.now(), role: 'assistant', content: resText, timestamp: new Date(), type: 'text' }]);
       } else {
-        const res = await getGeminiResponse(content, `${product.name} (${product.model}) 官方说明书知识库`, true);
+        let res;
+        
+        if (aiModel === 'zhipu') {
+          res = await getZhipuResponse(content, `${product.name} (${product.model}) 官方说明书知识库`);
+        } else {
+          res = await getGeminiResponse(content, `${product.name} (${product.model}) 官方说明书知识库`, true);
+        }
+        
         setMessages(prev => [...prev, { id: 'ai-' + Date.now(), role: 'assistant', content: res.text, timestamp: new Date(), type: 'text' }]);
       }
     } catch (err) {
@@ -167,9 +196,23 @@ const UserInterface: React.FC<{ productId: string }> = ({ productId }) => {
             </div>
           </div>
         </div>
-        <button className="p-3 bg-gray-50 rounded-2xl text-gray-400 hover:text-[#D4AF37] transition-all border border-gray-100">
-          <Icons.Settings className="w-6 h-6" />
-        </button>
+        <div className="flex items-center space-x-4">
+          {/* AI模型选择器 */}
+          <div className="flex items-center space-x-2">
+            <span className="text-xs font-bold text-gray-500">AI模型</span>
+            <select
+              value={aiModel}
+              onChange={(e) => setAiModel(e.target.value as 'gemini' | 'zhipu')}
+              className="text-xs px-2 py-1 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
+            >
+              <option value="gemini">Gemini</option>
+              <option value="zhipu">智谱GLM</option>
+            </select>
+          </div>
+          <button className="p-3 bg-gray-50 rounded-2xl text-gray-400 hover:text-[#D4AF37] transition-colors border border-gray-100">
+            <Icons.Settings className="w-6 h-6" />
+          </button>
+        </div>
       </header>
 
       {/* Messages */}
